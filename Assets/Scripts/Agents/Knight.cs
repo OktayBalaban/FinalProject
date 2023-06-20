@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Healer : Agent
+public class Knight : Agent
 {
     // This constructor calls the base constructor of Agent
-    public Healer(string team, int agentId, int gridId) : base(team, "healer", agentId, gridId)
+    public Knight(string team, int agentId, int gridId) : base(team, "knight", agentId, gridId)
     {
-        mHealth = 60;
         mOffense = 0;
+        mHealth = 140;
         mDefense = 10;
     }
+
 
 }

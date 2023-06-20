@@ -40,7 +40,7 @@ public class TeamManager : MonoBehaviour
         for (int i = 0; i < mNumberOfTeams; i++)
         {
             mTeams.Add(new Team(i));
-            mTeams[0].InýtializeTeam(mTeamSize);
+            mTeams[i].InýtializeTeam(mTeamSize);
         }
     }
 }

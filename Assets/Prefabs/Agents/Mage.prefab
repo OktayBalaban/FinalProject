@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1948731700122339623}
   - component: {fileID: 1948731700122339624}
   m_Layer: 0
-  m_Name: Healer
+  m_Name: Mage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.003921577, g: 0.98039216, b: 0.1038354, a: 1}
+  m_Color: {r: 0.41585764, g: 0.030037375, b: 0.4245283, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

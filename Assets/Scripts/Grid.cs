@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Grid
+public class Grid 
 {
     private int mWidth;
     private int mHeight;
@@ -10,18 +10,21 @@ public class Grid
     private int mPosX;
     private int mPosY;
 
+
     private string mGridIdStr;
 
-    // 0 means no agent is located in the grid
-    private int mAgentId = 0;
+    // -1 means no agent is located in the grid
+    private int mAgentId = -1;
+    private string mAgentType;
 
     public Grid(int posX, int posY, int width, int height, int gridId)
     {
-        mPosX = posX;
-        mPosY = posY;
         mWidth = width;
         mHeight = height;
         mGridId = gridId;
+
+        mPosX = posX * mWidth;
+        mPosY = posY * mHeight;
 
         mGridIdStr = "Rectangle" + mGridId.ToString();
     }
@@ -31,9 +34,17 @@ public class Grid
         return mGridId;
     }
 
-    public void SetAgent(int agentId)
+    public void SetAgent(int agentId,string agentType)
     {
         mAgentId = agentId;
+        mAgentType = agentType;
+
+        //Debug.Log("Agent " + agentId.ToString() + " is created as " +  agentType + " on grid " + mGridId.ToString());
+    }
+
+    public void ClearAgent()
+    {
+        mAgentId = -1;
     }
     
     public int GetAgent()
@@ -41,7 +52,10 @@ public class Grid
         return mAgentId;
     }
 
-
-
+    public List<int> GetAgentPosition()
+    {
+        List<int> agentPos = new List<int> { mPosX, mPosY };
+        return agentPos;
+    }
 
 }
