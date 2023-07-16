@@ -31,17 +31,22 @@ public class RoundManager : MonoBehaviour
 
     }
 
-    public void InýtializeNewRound(ref List<Team> teams)
+    public void InýtializeNewRound(List<Team> teams)
     {
+        mFixture.Clear();
+        mScoreTable.Clear();
+        mTeams.Clear();
+
         int roundTeamId = 0;
         foreach (Team team in teams) 
         {
+            team.ResetScore();
             mTeams.Add(new KeyValuePair<Team, int>(team, roundTeamId));
             roundTeamId++;
         }
 
         createFixture();
-        Debug.Log("Fixture Created");
+        //Debug.Log("Fixture Created");
         processRounds();
 
     }
@@ -95,10 +100,16 @@ public class RoundManager : MonoBehaviour
     {
         foreach (KeyValuePair<Team, int> team in mTeams)
         {
-            Debug.Log("Team " + team.Value + " Score: " + team.Key.GetScore());
+            //Debug.Log("Team " + team.Value + " Score: " + team.Key.GetScore());
             mScoreTable.Add(new KeyValuePair<Team, int>(team.Key, team.Key.GetScore()));
         }
 
         mScoreTable.Sort((x, y) => y.Value.CompareTo(x.Value));
+
+        // Displaying the sorted list
+        foreach (KeyValuePair<Team, int> team in mScoreTable)
+        {
+            //Debug.Log(team.Key.GetTeamId().ToString() + " : "  + team.Value);
+        }
     }
 }

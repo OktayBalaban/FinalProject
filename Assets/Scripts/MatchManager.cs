@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class MatchManager : MonoBehaviour
 {
-    private Transform mAgentManagerObj;
-    private AgentManager mAgentManager;
-
     private bool mIsMatchPlaying;
     private int mTurnLimit;
     private int mPlayedTurns;
@@ -24,9 +21,6 @@ public class MatchManager : MonoBehaviour
 
     void Awake()
     {
-        mAgentManagerObj = transform.Find("AgentManager");
-        mAgentManager = mAgentManagerObj.GetComponent<AgentManager>();
-
         mIsMatchPlaying = false;
         mTurnLimit = 50;
         mPlayedTurns = 0;
@@ -61,17 +55,17 @@ public class MatchManager : MonoBehaviour
         mRedTeam.PrepareTeam("red");
         mBlueTeam.PrepareTeam("blue");
 
-        Debug.Log("Teams are prepared");
+        //Debug.Log("Teams are prepared");
 
         mRedAgents = mRedTeam.GetAliveAgents();
         mBlueAgents = mBlueTeam.GetAliveAgents();
 
-        Debug.Log("Agents Are Taken");
+        //Debug.Log("Agents Are Taken");
 
         populateAgentLocations();
         setEnemyTargets();
 
-        Debug.Log("Targets are prioritized");
+        //Debug.Log("Targets are prioritized");
 
         mIsMatchPlaying = true;
 
@@ -82,7 +76,7 @@ public class MatchManager : MonoBehaviour
 
             if(checkWinner())
             {
-                Debug.Log("Changing Winner to: " + mWinner);
+                //Debug.Log("Changing Winner to: " + mWinner);
                 mIsMatchPlaying=false;
             }
         }
@@ -174,9 +168,9 @@ public class MatchManager : MonoBehaviour
 
     private bool checkWinner()
     {
-        Debug.Log("-----------------------------Checking Winner---------------------");
-        Debug.Log("Red Agents Left: " + mRedAgents.Count.ToString());
-        Debug.Log("Blue Agents Left: " + mBlueAgents.Count.ToString());
+        //Debug.Log("-----------------------------Checking Winner---------------------");
+        //Debug.Log("Red Agents Left: " + mRedAgents.Count.ToString());
+        //Debug.Log("Blue Agents Left: " + mBlueAgents.Count.ToString());
 
         bool isBlueStanding = true;
         bool isRedStanding = true;
@@ -193,7 +187,7 @@ public class MatchManager : MonoBehaviour
             isBlueStanding = false;
         }
 
-        Debug.Log("isRedStanding: " + isRedStanding + ", isBlueStanding: " + isBlueStanding);
+        //Debug.Log("isRedStanding: " + isRedStanding + ", isBlueStanding: " + isBlueStanding);
 
         if (!(isRedStanding || isBlueStanding))
         {

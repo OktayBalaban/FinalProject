@@ -8,6 +8,8 @@ public class GridManager : MonoBehaviour
     private int mHeight = 1;
     private Grid[] mGridArray = new Grid[100];
 
+    private List<GameObject> mDrawnAgents;
+
     public GameObject prefabKnight;
     public GameObject prefabMage;
     public GameObject prefabHealer;
@@ -15,7 +17,7 @@ public class GridManager : MonoBehaviour
 
     void Awake()
     {
-
+        mDrawnAgents = new List<GameObject>();
     }
 
     void Start()
@@ -30,7 +32,7 @@ public class GridManager : MonoBehaviour
 
     public void DrawTeam(Team team)
     {
-        Debug.Log("Drawing Teams in Grid Manager");
+        //Debug.Log("Drawing Teams in Grid Manager");
         clearAgentsFromGrids();
 
         List<KeyValuePair<string, int>> teamComposition = team.GetTeamComposition();
@@ -50,18 +52,22 @@ public class GridManager : MonoBehaviour
                 case "knight":
                     GameObject newAgentKnight = Instantiate(prefabKnight, spawnPosition, Quaternion.identity);
                     newAgentKnight.name = $"Agent_{agentId}_{agent.Key}";
+                    mDrawnAgents.Add(newAgentKnight);
                     break;
                 case "healer":
                     GameObject newAgentHealer = Instantiate(prefabHealer, spawnPosition, Quaternion.identity);
                     newAgentHealer.name = $"Agent_{agentId}_{agent.Key}";
+                    mDrawnAgents.Add(newAgentHealer);
                     break;
                 case "mage":
                     GameObject newAgentMage = Instantiate(prefabMage, spawnPosition, Quaternion.identity);
                     newAgentMage.name = $"Agent_{agentId}_{agent.Key}";
+                    mDrawnAgents.Add(newAgentMage);
                     break;
                 case "archer":
                     GameObject newAgentArcher = Instantiate(prefabArcher, spawnPosition, Quaternion.identity);
                     newAgentArcher.name = $"Agent_{agentId}_{agent.Key}";
+                    mDrawnAgents.Add(newAgentArcher);
                     break;
             }
         }
@@ -86,9 +92,16 @@ public class GridManager : MonoBehaviour
 
     private void clearAgentsFromGrids()
     {
-        foreach(Grid grid in mGridArray)
+        foreach (GameObject agent in mDrawnAgents)
+        {
+            Destroy(agent);
+        }
+
+        foreach (Grid grid in mGridArray)
         {
             grid.ClearAgent();
         }
+
+
     }
 }

@@ -8,7 +8,7 @@ public class Knight : Agent
     public Knight(string team, int agentId, int gridId) : base(team, "knight", agentId, gridId)
     {
         mOffense = 0;
-        mHealth = 140;
+        mHealth = 350;
         mDefense = 10;
     }
 

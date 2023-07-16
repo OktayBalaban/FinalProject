@@ -11,14 +11,21 @@ public class MainManager : MonoBehaviour
     private Transform mRoundManagerObj;
     private RoundManager mRoundManager;
 
-    private Transform mTeamManagerObj;
-    private TeamManager mTeamManager;
-
     private Transform mGridManagerObj;
     private GridManager mGridManager;
 
+    private Transform mEvolutionManagerObj;
+    private EvolutionManager mEvolutionManager;
+
     private List<Team> mTeams;
     private List<KeyValuePair<Team, int>> mScoreTable;
+
+    public int mRoundNumber;
+    private int mRoundCount;
+
+    public int mTeamSize;
+    public int mTeamCount;
+    
 
     public void Awake()
     {
@@ -28,37 +35,85 @@ public class MainManager : MonoBehaviour
         mGridManagerObj = transform.Find("GridManager");
         mGridManager = mGridManagerObj.GetComponent<GridManager>();
 
-        mTeamManagerObj = transform.Find("TeamManager");
-        mTeamManager = mTeamManagerObj.GetComponent<TeamManager>();
+        mEvolutionManagerObj = transform.Find("EvolutionManager");
+        mEvolutionManager = mEvolutionManagerObj.GetComponent<EvolutionManager>();
 
         mScoreTable = new List<KeyValuePair<Team, int>>();
+
+        mTeamSize = 10;
+        mTeamCount = 20;
+
+        mTeams = new List<Team>();
+        mRoundCount = 0;
     }
 
     void Start()
     {
-        mTeams = mTeamManager.GetTeams();
+        Debug.Log("Round: " +  mRoundCount.ToString());
+        
+        createOriginalTeams();
 
-        mRoundManager.InýtializeNewRound(ref mTeams);
+        mRoundManager.InýtializeNewRound(mTeams);
+
+        getScores();
+
+        drawTeam(mScoreTable[0].Key);
+
+        evolveTeams();
+        mRoundCount++;
+
+ 
+        isDraw = false;
     }
 
     void Update()
     {
-        while (isDraw)
+        Debug.Log("Round: " + mRoundCount.ToString());
+        if (isDraw)
         {
-            GetScores();
-            DrawTeam(mScoreTable[0].Key);
+            drawTeam(mScoreTable[0].Key);
             isDraw = false;
+        }
+
+        if (mRoundCount < mRoundNumber) 
+        {
+            mRoundManager.InýtializeNewRound(mTeams);
+
+            getScores();
+            evolveTeams();
+            mRoundCount++;
+            isDraw = true;
         }
     }
 
-    public void GetScores()
+    private void getScores()
     {
         mScoreTable = mRoundManager.GetScoreTable();
         //Debug.Log("mScoreTable[2].Key.TeamId: " + mScoreTable[2].Key.GetTeamId().ToString());
     }
 
-    public void DrawTeam(Team team)
+    private void evolveTeams()
+    {
+        mTeams.Clear();
+        foreach (KeyValuePair<Team, int> team in mScoreTable)
+        {
+            mTeams.Add(team.Key);
+        }
+
+        mTeams = mEvolutionManager.EvolveTeams(mTeams);
+    }
+
+    private void drawTeam(Team team)
     {
         mGridManager.DrawTeam(team);
+    }
+
+    private void createOriginalTeams()
+    {
+        for (int i = 0; i < mTeamCount; i++)
+        {
+            mTeams.Add(new Team(i));
+            mTeams[i].InýtializeTeam(mTeamSize);
+        }
     }
 }
