@@ -1,5 +1,5 @@
 # FinalProject
-FinalProject (Under Development)
+Automated Game Testing on Auto-Battler Video Games using Genetic Algorithms
 
 All files except "libraries" folder is uploaded. libraries needs to come from Unity itself.
 
