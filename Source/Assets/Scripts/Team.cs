@@ -5,7 +5,7 @@ using System.Linq;
 
 public class Team
 {
-    enum AgentType { healer, knight, mage, archer, chanter, warlock };
+    enum AgentType { paladin, knight, mage, archer, cleric, warlock };
 
     private int mTeamId;
 
@@ -156,10 +156,10 @@ public class Team
                     mAliveAgents.Add(newAgentKnight);
                     //Debug.Log("Agent " + agentId.ToString() + "is being created for " + mTeamId.ToString() + " (" + teamColour + ") as Knight");
                     break;
-                case "healer":
-                    Healer newAgentHealer = new Healer(teamColour, agentId, agent.Value);
-                    mAliveAgents.Add(newAgentHealer);
-                    //Debug.Log("Agent " + agentId.ToString() + "is being created for " + mTeamId.ToString() + " (" + teamColour + ") as Healer");
+                case "paladin":
+                    Paladin newAgentPaladin = new Paladin(teamColour, agentId, agent.Value);
+                    mAliveAgents.Add(newAgentPaladin);
+                    //Debug.Log("Agent " + agentId.ToString() + "is being created for " + mTeamId.ToString() + " (" + teamColour + ") as Paladin");
                     break;
                 case "mage":
                     Mage newAgentMage = new Mage(teamColour, agentId, agent.Value);
@@ -171,10 +171,10 @@ public class Team
                     mAliveAgents.Add(newAgentArcher);
                     //Debug.Log("Agent " + agentId.ToString() + "is being created for " + mTeamId.ToString() + " (" + teamColour + ") as Archer");
                     break;
-                case "chanter":
-                    Chanter newAgentChanter = new Chanter(teamColour, agentId, agent.Value);
-                    mAliveAgents.Add(newAgentChanter);
-                    //Debug.Log("Agent " + agentId.ToString() + "is being created for " + mTeamId.ToString() + " (" + teamColour + ") as Chanter");
+                case "cleric":
+                    Cleric newAgentcleric = new Cleric(teamColour, agentId, agent.Value);
+                    mAliveAgents.Add(newAgentcleric);
+                    //Debug.Log("Agent " + agentId.ToString() + "is being created for " + mTeamId.ToString() + " (" + teamColour + ") as cleric");
                     break;
                 case "warlock":
                     Warlock newAgentWarlock = new Warlock(teamColour, agentId, agent.Value);

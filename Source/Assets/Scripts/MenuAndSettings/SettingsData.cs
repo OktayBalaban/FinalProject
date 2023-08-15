@@ -18,18 +18,28 @@ public class SettingsData
     public int mageDefense;
     public int mageOffense;
 
-    public int healerHealth;
-    public int healerDefense;
-    public int healerHealthBuff;
+    public int paladinHealth;
+    public int paladinDefense;
+    public int paladinHealthBuff;
 
-    public int chanterHealth;
-    public int chanterDefense;
-    public int chanterDefenseBuff;
-    public int chanterOffenseBuff;
+    public int clericHealth;
+    public int clericDefense;
+    public int clericDefenseBuff;
+    public int clericOffenseBuff;
 
     public int warlockHealth;
     public int warlockDefense;
     public int warlockDefenseDebuff;
+
+    public int roundLimit;
+    public int turnLimit;
+    public int teamSize;
+    public int numberOfTeams;
+
+    public int numberOfCrossbreedParents;
+    public int numberOfCrossbreedReplacements;
+    public float mutationCoefficient;
+    public float mutationBias;
 
     private static SettingsData instance;
 

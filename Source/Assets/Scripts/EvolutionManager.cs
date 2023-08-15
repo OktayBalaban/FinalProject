@@ -5,11 +5,11 @@ using UnityEngine;
 public class EvolutionManager : MonoBehaviour
 {
 
-    public int mRemovalCount = 2;
-    public int mCrossbreedCount = 2;
+    public int mRemovalCount;
+    public int mCrossbreedCount;
   
-    public float mChangeAgentCoefficient = 0.05f;
-    public float mChangeBase = 0.0000f;
+    public float mChangeAgentCoefficient;
+    public float mChangeBase;
 
     private int mEvolutionCount;
     private int mIndex;
@@ -17,8 +17,21 @@ public class EvolutionManager : MonoBehaviour
     public int mTeamSize = 10;
     private List<Team> mTeams;
 
+    private SettingsData settings;
+
+
     void Awake()
     {
+        settings = SettingsData.Instance;
+
+        mRemovalCount = settings.numberOfCrossbreedReplacements;
+        mCrossbreedCount = settings.numberOfCrossbreedParents;
+
+        mChangeAgentCoefficient = settings.mutationCoefficient;
+        mChangeBase = settings.mutationBias;
+
+        mTeamSize = settings.teamSize;
+
         mTeams = new List<Team>();
 
         mEvolutionCount = 0;
@@ -69,7 +82,7 @@ public class EvolutionManager : MonoBehaviour
 
         List<KeyValuePair<string, int>> agentPool = getAgentPool(crossbreederTeams);
 
-        for (int i = 0; i < mCrossbreedCount; i++)
+        for (int i = 0; i < mRemovalCount; i++)
         {
             createNewTeam(agentPool);
         }
@@ -128,6 +141,7 @@ public class EvolutionManager : MonoBehaviour
         foreach (Team team in mTeams)
         {
             float changeRate = changeIndex * mChangeAgentCoefficient + mChangeBase;
+            changeRate = Mathf.Min(1.00f, changeRate);
             team.MutateAgents(changeRate);
             changeIndex++;
         }

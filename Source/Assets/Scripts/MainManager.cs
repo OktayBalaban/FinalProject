@@ -16,6 +16,9 @@ public class MainManager : MonoBehaviour
     private Transform mGridManagerObj;
     private GridManager mGridManager;
 
+    private Transform mEvaluationManagerObj;
+    private EvaluationManager mEvaluationManager;
+
     private Transform mEvolutionManagerObj;
     private EvolutionManager mEvolutionManager;
 
@@ -40,24 +43,26 @@ public class MainManager : MonoBehaviour
         mGridManagerObj = transform.Find("GridManager");
         mGridManager = mGridManagerObj.GetComponent<GridManager>();
 
+        mEvaluationManagerObj = transform.Find("EvaluationManager");
+        mEvaluationManager = mEvaluationManagerObj.GetComponent<EvaluationManager>();
+
         mEvolutionManagerObj = transform.Find("EvolutionManager");
         mEvolutionManager = mEvolutionManagerObj.GetComponent<EvolutionManager>();
 
         mScoreTable = new List<KeyValuePair<Team, int>>();
 
-        mTeamSize = 10;
-        mTeamCount = 20;
-
         mTeams = new List<Team>();
         mRoundCount = 0;
 
         settings = SettingsData.Instance;
+
+        mTeamSize = settings.teamSize;
+        mTeamCount = settings.numberOfTeams;
+        mRoundNumber = settings.roundLimit;
     }
 
     void Start()
-    {
-        Debug.Log("Round: " +  mRoundCount.ToString());
-        
+    {    
         createOriginalTeams();
 
         mRoundManager.InýtializeNewRound(mTeams);
@@ -65,6 +70,8 @@ public class MainManager : MonoBehaviour
         getScores();
 
         drawTeam(mScoreTable[0].Key);
+
+        mEvaluationManager.UpdateBalanceEvaluation(mScoreTable[0].Key);
 
         evolveTeams();
         mRoundCount++;
@@ -76,7 +83,6 @@ public class MainManager : MonoBehaviour
     void Update()
     {
         mRoundCounter.text = mRoundCount.ToString();
-        //Debug.Log("Round: " + mRoundCount.ToString());
         if (isDraw)
         {
             drawTeam(mScoreTable[0].Key);
@@ -88,6 +94,9 @@ public class MainManager : MonoBehaviour
             mRoundManager.InýtializeNewRound(mTeams);
 
             getScores();
+
+            mEvaluationManager.UpdateBalanceEvaluation(mScoreTable[0].Key);
+
             evolveTeams();
             mRoundCount++;
             isDraw = true;
@@ -97,7 +106,6 @@ public class MainManager : MonoBehaviour
     private void getScores()
     {
         mScoreTable = mRoundManager.GetScoreTable();
-        //Debug.Log("mScoreTable[2].Key.TeamId: " + mScoreTable[2].Key.GetTeamId().ToString());
     }
 
     private void evolveTeams()

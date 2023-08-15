@@ -12,9 +12,9 @@ public class GridManager : MonoBehaviour
 
     public GameObject prefabKnight;
     public GameObject prefabMage;
-    public GameObject prefabHealer;
+    public GameObject prefabPaladin;
     public GameObject prefabArcher;
-    public GameObject prefabChanter;
+    public GameObject prefabCleric;
     public GameObject prefabWarlock;
 
     void Awake()
@@ -56,10 +56,10 @@ public class GridManager : MonoBehaviour
                     newAgentKnight.name = $"Agent_{agentId}_{agent.Key}";
                     mDrawnAgents.Add(newAgentKnight);
                     break;
-                case "healer":
-                    GameObject newAgentHealer = Instantiate(prefabHealer, spawnPosition, Quaternion.identity);
-                    newAgentHealer.name = $"Agent_{agentId}_{agent.Key}";
-                    mDrawnAgents.Add(newAgentHealer);
+                case "paladin":
+                    GameObject newAgentPaladin = Instantiate(prefabPaladin, spawnPosition, Quaternion.identity);
+                    newAgentPaladin.name = $"Agent_{agentId}_{agent.Key}";
+                    mDrawnAgents.Add(newAgentPaladin);
                     break;
                 case "mage":
                     GameObject newAgentMage = Instantiate(prefabMage, spawnPosition, Quaternion.identity);
@@ -71,10 +71,10 @@ public class GridManager : MonoBehaviour
                     newAgentArcher.name = $"Agent_{agentId}_{agent.Key}";
                     mDrawnAgents.Add(newAgentArcher);
                     break;
-                case "chanter":
-                    GameObject newAgentChanter = Instantiate(prefabChanter, spawnPosition, Quaternion.identity);
-                    newAgentChanter.name = $"Agent_{agentId}_{agent.Key}";
-                    mDrawnAgents.Add(newAgentChanter);
+                case "cleric":
+                    GameObject newAgentCleric = Instantiate(prefabCleric, spawnPosition, Quaternion.identity);
+                    newAgentCleric.name = $"Agent_{agentId}_{agent.Key}";
+                    mDrawnAgents.Add(newAgentCleric);
                     break;
                 case "warlock":
                     GameObject newAgentWarlock = Instantiate(prefabWarlock, spawnPosition, Quaternion.identity);

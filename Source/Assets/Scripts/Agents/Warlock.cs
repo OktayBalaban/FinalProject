@@ -52,7 +52,7 @@ public class Warlock : Agent
                 //Debug.Log("Warlock" + mAgentId + " attacks!");
                 foreach (Agent enemy in mDebuffingList[0].Value)
                 {
-                   enemy.ChangeDefense(-mDefenseDebuff);
+                    enemy.ChangeDefense(-mDefenseDebuff);
                 }
 
                 isMoveHappened = true;
@@ -68,7 +68,7 @@ public class Warlock : Agent
 
     private void findAffectedEnemies(List<KeyValuePair<Vector2, Agent>> enemyAgents, Agent targetAgent)
     {
-        Vector2 hitLocation = targetAgent.GetAgentLocation();
+        Vector2 hitLocation = setHitLocation(targetAgent.GetAgentLocation());
 
         List<Vector2> affectedLocations = findAffectedLocations(hitLocation);
 
@@ -88,16 +88,49 @@ public class Warlock : Agent
         mDebuffingList.Add(new KeyValuePair<Agent, List<Agent>>(targetAgent, affectedAgents));
     }
 
+    // To have a better Mage, we always set hit location for maximum effect. 
+    //If the target is close to the border, where some of the aoe attack will be wasted, we hit a neighbouring grid where we will have 3x3 attacking area
+    private Vector2 setHitLocation(Vector2 hitLocation)
+    {
+        int targetX = (int)hitLocation.x;
+        int targetY = (int)hitLocation.y;
+
+        if (targetX == 0)
+        {
+            targetX = 1;
+        }
+        else if (targetX == 9)
+        {
+            targetX = 8;
+        }
+
+        if (targetY == 0 || targetY == 5)
+        {
+            targetY = targetY + 1;
+        }
+        else if (targetY == 4 || targetY == 9)
+        {
+            targetY = targetY - 1;
+        }
+
+        Vector2 adjustedHitLocation = new Vector2(targetX, targetY);
+
+        return adjustedHitLocation;
+    }
+
     private List<Vector2> findAffectedLocations(Vector2 hitLocation)
     {
         List<Vector2> affectedLocations = new List<Vector2>();
 
-        for (int i = 0; i < 10; ++i)
+        for (int i = -1; i < 2; ++i)
         {
-            affectedLocations.Add(new Vector2(i, hitLocation.y));
+            for (int j = -1; j < 2; ++j)
+            {
+                affectedLocations.Add(new Vector2(hitLocation.x + i, hitLocation.y + j));
+            }
         }
 
         return affectedLocations;
     }
-
 }
+

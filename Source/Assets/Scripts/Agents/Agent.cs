@@ -7,7 +7,7 @@ using System;
 public class Agent
 {
     
-    enum AgentType {healer, knight, mage, archer, chanter, warlock}
+    enum AgentType {paladin, knight, mage, archer, cleric, warlock}
 
     protected string mTeam;
     private AgentType mAgentType;

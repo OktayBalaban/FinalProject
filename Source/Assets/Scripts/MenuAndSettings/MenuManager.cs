@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class MenuManager : MonoBehaviour
 
     public GameObject mSettingsPanel;
     public GameObject mMainMenuPanel;
+
+    public TMPro.TextMeshProUGUI mTitleText;
 
     public void Awake()
     {
@@ -39,10 +42,13 @@ public class MenuManager : MonoBehaviour
 
     public void SaveAndReturn()
     {
-        mSettingsManager.SaveSettings();
+        if (mSettingsManager.CheckInputs()) 
+        {
+            mSettingsManager.SaveSettings();
 
-        mSettingsPanel.SetActive(false);
-        mMainMenuPanel.SetActive(true);
+            mSettingsPanel.SetActive(false);
+            mMainMenuPanel.SetActive(true);
+        }
     }
 
     public void Quit()
